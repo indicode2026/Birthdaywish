@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#160d2b">
+<title>Birthday Surprise 🎁</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:18px;display:grid;place-items:center;background:radial-gradient(circle at 15% 15%,#63378d,transparent 36%),radial-gradient(circle at 85% 85%,#762d65,transparent 36%),linear-gradient(135deg,#100b25,#24113d);font-family:Arial,sans-serif;color:#fff;text-align:center}
+.card{width:min(100%,560px);min-height:570px;padding:35px 22px;display:grid;place-items:center;border:1px solid #ffffff55;border-radius:28px;background:#ffffff18;box-shadow:0 20px 70px #0007;backdrop-filter:blur(12px)}
+.page{width:100%;animation:fade .5s ease}.hidden{display:none!important}
+.eyebrow{font-weight:bold;letter-spacing:2px;color:#ffd5ed;font-size:.85rem}
+h1{font-size:clamp(2rem,8vw,3.2rem);line-height:1.15;background:linear-gradient(90deg,#fff,#ffc3e1,#ffe995);color:transparent;background-clip:text}
+.sub{color:#f1def9;font-size:1.1rem}
+.giftButton{border:0;background:transparent;display:grid;justify-items:center;gap:12px;margin:25px auto;cursor:pointer;color:white;padding:16px;min-width:220px;min-height:190px;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.gift{font-size:clamp(7rem,28vw,10rem);filter:drop-shadow(0 8px 18px #ff65a388);animation:bob 1.8s infinite;line-height:1.1}
+.clickText{font-weight:bold;letter-spacing:2px;background:linear-gradient(90deg,#ff65a3,#8278ff);border-radius:30px;padding:13px 34px}
+h2{color:#ffe58b;font-size:clamp(1.15rem,5vw,1.7rem);margin:24px 0}
+.birthday{font-size:clamp(2.4rem,9vw,4rem);animation:glow 1s infinite alternate}
+.choice{display:block;width:min(100%,360px);margin:13px auto;padding:16px;border:0;border-radius:16px;background:linear-gradient(100deg,#ffe18b,#ffb6d6);color:#301a40;font-size:1.05rem;font-weight:bold;cursor:pointer;touch-action:manipulation}
+#answer{min-height:65px;display:grid;place-items:center;color:#fff2a8;font-size:1.3rem;font-weight:bold}
+.again{padding:10px 20px;border-radius:25px;border:1px solid #fff8;background:#ffffff22;color:white;cursor:pointer}
+#confetti{position:fixed;inset:0;overflow:hidden;pointer-events:none}
+.confetti{position:absolute;top:-15px;width:9px;height:15px;animation:fall 3s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(700deg);opacity:.2}}
+@keyframes bob{50%{transform:translateY(-12px) rotate(4deg)}}
+@keyframes glow{to{text-shadow:0 0 25px #ff8bc7}}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<main class="card">
+<section id="giftPage" class="page">
+<p class="eyebrow">✨ A LITTLE SURPRISE FOR YOU ✨</p>
+<h1>Someone sent you a gift!</h1>
+<p class="sub">Tap the gift to open it 🎀</p>
+<button class="giftButton" type="button" onclick="openGift()">
+<span class="gift">🎁</span><span class="clickText">CLICK ME</span>
+</button>
+</section>
+<section id="wishPage" class="page hidden">
+<p class="eyebrow">🎉 TODAY IS ALL ABOUT YOU 🎉</p>
+<h1 class="birthday">Happy Birthday to you!</h1>
+<h2>🔱 Bholenath bless you 🔱</h2>
+<h2>खुश रहो, खुश रखो ❤️</h2>
+<p class="sub">A little more surprise coming... ✨</p>
+</section>
+<section id="giftChoices" class="page hidden">
+<p class="eyebrow">🎁 YOUR BIRTHDAY GIFT 🎁</p>
+<h1>Ab batao, kya gift chahiye?</h1>
+<p class="sub">Soch samajh kar choose karna 😁</p>
+<button class="choice" type="button" onclick="showAnswer('money')">💸 11 rupye</button>
+<button class="choice" type="button" onclick="showAnswer('clothes')">👗 Kapde</button>
+<button class="choice" type="button" onclick="showAnswer('nothing')">🙅‍♀️ Kuch nahi</button>
+<div id="answer" aria-live="polite"></div>
+<button class="again" type="button" onclick="restart()">↻ Start again</button>
+</section>
+</main>
+<div id="confetti"></div>
+<script>
+(function(){
+ let timer;
+ window.openGift=function(){
+   document.getElementById('giftPage').classList.add('hidden');
+   document.getElementById('wishPage').classList.remove('hidden');
+   celebrate(90);
+   clearTimeout(timer);
+   timer=setTimeout(function(){
+     document.getElementById('wishPage').classList.add('hidden');
+     document.getElementById('giftChoices').classList.remove('hidden');
+   },5000);
+ };
+ window.showAnswer=function(which){
+   const replies={
+     money:'Oke 😁😁',
+     clothes:'Tuje kapde miljayenge, magar muje teri saheliya 🙃🙃',
+     nothing:'Sahi kiya, vaise bhi is gareeb se kya hi expect kr skte h 😂'
+   };
+   document.getElementById('answer').textContent=replies[which];
+   celebrate(30);
+ };
+ window.restart=function(){
+   clearTimeout(timer);
+   document.getElementById('answer').textContent='';
+   document.getElementById('giftChoices').classList.add('hidden');
+   document.getElementById('wishPage').classList.add('hidden');
+   document.getElementById('giftPage').classList.remove('hidden');
+ };
+ function celebrate(n){
+   const layer=document.getElementById('confetti');
+   const colors=['#ff65a3','#ffe47a','#9b72ff','#75e6da','#fff'];
+   for(let i=0;i<n;i++){
+     const bit=document.createElement('i');
+     bit.className='confetti';
+     bit.style.left=Math.random()*100+'vw';
+     bit.style.background=colors[Math.floor(Math.random()*colors.length)];
+     bit.style.animationDelay=Math.random()+'s';
+     layer.appendChild(bit);
+     setTimeout(()=>bit.remove(),4000);
+   }
+ }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Birthday Surprise 🎁</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="app">
+<section class="screen active" id="gift-screen">
+<p>✨ A little surprise for you ✨</p><h1>Someone sent you a gift!</h1>
+<p>Tap the gift to open it 🎀</p>
+<button id="open-gift" class="gift"><span>🎁</span><b>CLICK ME</b></button>
+</section>
+<section class="screen" id="greeting-screen">
+<p>🎉 Today is all about you 🎉</p><h1 class="birthday">Happy Birthday to you!</h1>
+<h2>🔱 Bholenath bless you 🔱</h2><h2>खुश रहो, खुश रखो ❤️</h2>
+<p>A little more surprise coming... ✨</p>
+</section>
+<section class="screen" id="choice-screen">
+<p>🎁 YOUR BIRTHDAY GIFT 🎁</p><h1>Ab batao, kya gift chahiye?</h1>
+<p>Soch samajh kar choose karna 😁</p>
+<div class="choices">
+<button data-answer="money">💸 11 rupye</button>
+<button data-answer="clothes">👗 Kapde</button>
+<button data-answer="nothing">🙅‍♀️ Kuch nahi</button>
+</div>
+<div id="answer" aria-live="polite"></div><button id="replay" class="replay">↻ Start again</button>
+</section></main>
+<div id="confetti"></div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+ const gift=document.getElementById('gift-screen');
+ const greeting=document.getElementById('greeting-screen');
+ const choices=document.getElementById('choice-screen');
+ const answer=document.getElementById('answer');
+ let timer;
+ function show(which){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));which.classList.add('active');}
+ function celebrate(n){const colors=['#ff65a3','#ffe47a','#9b72ff','#75e6da','#fff'];const layer=document.getElementById('confetti');for(let i=0;i<n;i++){const p=document.createElement('i');p.className='piece';p.style.left=Math.random()*100+'%';p.style.background=colors[Math.floor(Math.random()*colors.length)];p.style.animationDelay=Math.random()+'s';layer.appendChild(p);setTimeout(()=>p.remove(),4500);}}
+ document.getElementById('open-gift').addEventListener('click',()=>{clearTimeout(timer);show(greeting);celebrate(100);timer=setTimeout(()=>show(choices),5000);});
+ const replies={money:'Oke 😁😁',clothes:'Tuje kapde miljayenge, magar muje teri saheliya 🙃🙃',nothing:'Sahi kiya, vaise bhi is gareeb se kya hi expect kr skte h 😂'};
+ document.querySelectorAll('[data-answer]').forEach(b=>b.addEventListener('click',()=>{answer.textContent=replies[b.dataset.answer];celebrate(30);}));
+ document.getElementById('replay').addEventListener('click',()=>{clearTimeout(timer);answer.textContent='';show(gift);});
+});
+</script>
+</body></html>

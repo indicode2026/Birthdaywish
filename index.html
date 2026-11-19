@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#160d2b">
+  <title>A Little Birthday Surprise 🎁</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="sparkles" aria-hidden="true"></div>
+
+  <main class="app">
+    <section class="screen active" id="gift-screen">
+      <p class="eyebrow">✨ A little surprise for you ✨</p>
+      <h1>Someone sent you a gift!</h1>
+      <p class="subtitle">Tap the gift to open it 🎀</p>
+      <button class="gift-button" id="open-gift" aria-label="Open the gift">
+        <span class="gift-emoji">🎁</span>
+        <span class="gift-hint">CLICK ME</span>
+      </button>
+    </section>
+
+    <section class="screen greeting-screen" id="greeting-screen">
+      <div class="light-rays" aria-hidden="true"></div>
+      <p class="eyebrow">🎉 Today is all about you 🎉</p>
+      <h1 class="birthday-title">Happy Birthday to you!</h1>
+      <p class="blessing">🔱 Bholenath bless you 🔱</p>
+      <p class="blessing hindi">खुश रहो, खुश रखो ❤️</p>
+      <div class="countdown">A little more surprise coming... ✨</div>
+    </section>
+
+    <section class="screen" id="choice-screen">
+      <p class="eyebrow">🎁 YOUR BIRTHDAY GIFT 🎁</p>
+      <h1>Ab batao, kya gift chahiye?</h1>
+      <p class="subtitle">Soch samajh kar choose karna 😁</p>
+      <div class="choices">
+        <button class="choice" data-answer="money">💸 11 rupye</button>
+        <button class="choice" data-answer="clothes">👗 Kapde</button>
+        <button class="choice" data-answer="nothing">🙅‍♀️ Kuch nahi</button>
+      </div>
+      <div class="answer" id="answer" role="status" aria-live="polite"></div>
+      <button class="replay" id="replay">↻ Start again</button>
+    </section>
+  </main>
+
+  <div class="confetti-layer" id="confetti" aria-hidden="true"></div>
+  <script src="script.js"></script>
+</body>
+</html>
